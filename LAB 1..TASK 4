@@ -1,0 +1,40 @@
++-----------------------------+                                      +------------------------------+
+|          Student             |
++------------------------------+
+| - regNumber: string          |
+| - name: string               |
+| - age: int                   |
+| - course: Course             |
+| - grade: Grade               |
++------------------------------+
+| + input(): void              |
+| + display(): void            |
+| + equals(s: Student): bool   |
++------------------------------+
+
+|           List             |           
++-----------------------------+
+| - students: Student[]       |
+| - size: int                 |
++-----------------------------+
+| + List()                    |
+| + List(s: Student)          |
+| + List(l: List)             |
+| + add(s: Student): void     |
+| + addAt(s: Student, i: int):void |
+| + remove(s: Student): void  |
+| + removeAt(i: int): void    |
+| + getSize(): int            |
+| + destroy(): void           |
+| + displayAll(): void        |
++-----------------------------+
+
++---------------------+      +--------------------------+
+|       Course        |      |          Grade           |
++---------------------+      +--------------------------+
+| - courseCode: string|      | - mark: int              |
+| - courseName: string|      | - theGrade: char         |
++---------------------+      | - isFinalized: bool      |
+                             +--------------------------+
+                             | + calculateGrade(m:int):char |
+                             +--------------------------+
