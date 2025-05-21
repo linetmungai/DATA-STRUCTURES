@@ -1,0 +1,156 @@
+#include <iostream>
+#include <string>
+
+#define MAX_STUDENTS 100
+
+using namespace std;
+
+// Student class
+class Student {
+public:
+    string regNumber;
+    string name;
+    int age;
+
+    Student() : regNumber(""), name(""), age(0) {}
+
+    Student(string regNumber, string name, int age)
+        : regNumber(regNumber), name(name), age(age) {}
+
+    void display() const {
+        cout << "Reg Number: " << regNumber << ", Name: " << name << ", Age: " << age << endl;
+    }
+
+    bool equals(const Student& other) const {
+        return regNumber == other.regNumber;
+    }
+};
+
+// List class (Array-based)
+class List {
+private:
+    Student students[MAX_STUDENTS];
+    int size;
+
+public:
+    // Constructor to create an empty list
+    List() {
+        size = 0;
+    }
+
+    // Constructor to create a list with one student
+    List(const Student& s) {
+        students[0] = s;
+        size = 1;
+    }
+
+    // Constructor to copy another list
+    List(const List& other) {
+        size = other.size;
+        for (int i = 0; i < size; i++) {
+            students[i] = other.students[i];
+        }
+    }
+
+    // Add student to the end
+    void add(const Student& s) {
+        if (size >= MAX_STUDENTS) {
+            cout << "List is full!" << endl;
+            return;
+        }
+        students[size++] = s;
+    }
+
+    // Add student at a specific position
+    void addAt(const Student& s, int pos) {
+        if (pos < 0 || pos > size || size >= MAX_STUDENTS) {
+            cout << "Invalid position or list is full." << endl;
+            return;
+        }
+        for (int i = size; i > pos; i--) {
+            students[i] = students[i - 1];
+        }
+        students[pos] = s;
+        size++;
+    }
+
+    // Remove student by value
+    void remove(const Student& s) {
+        for (int i = 0; i < size; i++) {
+            if (students[i].equals(s)) {
+                for (int j = i; j < size - 1; j++) {
+                    students[j] = students[j + 1];
+                }
+                size--;
+                cout << "Student removed." << endl;
+                return;
+            }
+        }
+        cout << "Student not found." << endl;
+    }
+
+    // Remove student by position
+    void removeAt(int pos) {
+        if (pos < 0 || pos >= size) {
+            cout << "Invalid position." << endl;
+            return;
+        }
+        for (int i = pos; i < size - 1; i++) {
+            students[i] = students[i + 1];
+        }
+        size--;
+        cout << "Student removed from position " << pos << "." << endl;
+    }
+
+    // Return the size of the list
+    int getSize() const {
+        return size;
+    }
+  
+    void destroy() {
+        size = 0;
+        cout << "List destroyed." << endl;
+    }
+
+    // Display all students
+    void displayAll() const {
+        if (size == 0) {
+            cout << "List is empty." << endl;
+            return;
+        }
+        for (int i = 0; i < size; i++) {
+            cout << i + 1 << ". ";
+            students[i].display();
+        }
+    }
+};
+
+int main() {
+    List studentList;
+
+    Student s1("REG123", "LINET", 19);
+    Student s2("REG456", "SIMON", 22);
+    Student s3("REG789", "JAMES", 23);
+
+    studentList.add(s1);
+    studentList.add(s2);
+    studentList.addAt(s3, 1);  // Insert Charlie at position 1
+
+    cout << "\nAll students:\n";
+    studentList.displayAll();
+
+    cout << "\nList size: " << studentList.getSize() << endl;
+
+    studentList.remove(s2);  // Remove Bob
+    studentList.removeAt(0); // Remove Alice by position
+
+    cout << "\nAfter removals:\n";
+    studentList.displayAll();
+
+    studentList.destroy();
+
+    cout << "\nAfter destroy:\n";
+    studentList.displayAll();
+
+    return 0;
+}
