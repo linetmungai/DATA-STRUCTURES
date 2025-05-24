@@ -1,7 +1,7 @@
 ----------------------------+                                      +------------------------------+
 |          Student             |
 +------------------------------+
-| - regNumber: string          |
+| - regNumber: string        |
 | - name: string               |
 | - age: int                   |
 | - course: Course             |
